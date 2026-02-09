@@ -14,12 +14,31 @@
     </style>
 </head>
 <body class="bg-light">
-
-<div class="container py-4">
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <h3><i class="bi bi-cup-straw"></i> Kitchen & Bar Sales</h3>
+    <!-- The NavBar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">AMELIA APART</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="room-management.html">Rooms</a></li>
+                <li class="nav-item"><a class="nav-link" href="kitchen-bar-sales.html">Kitchen/Bar</a></li>
+                <li class="nav-item"><a class="nav-link" href="expenses-and-debtors.html">Expenses/Debts</a></li>
+                <li class="nav-item"><a class="nav-link active text-warning" href="checkout.html">Check-out</a></li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <span class="text-light me-3 small"><i class="bi bi-person-circle"></i> Moise (Staff)</span>
+                <a href="login.html" class="btn btn-outline-danger btn-sm">Logout</a>
+            </div>
         </div>
+    </div>
+</nav>
+<!-- section -->
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3><i class="bi bi-wallet2 text-danger"></i> Kitchen & Bar Sales</h3>
         <div class="col-md-6 text-md-end">
             <div class="p-2 bg-white rounded shadow-sm d-inline-block">
                 <small class="text-muted">Staff on Duty:</small> <strong>Moise</strong> 
@@ -30,70 +49,51 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-5">
-            <div class="card p-4 sales-card mb-4">
-                <h5 class="mb-3">New Sale</h5>
-                <form id="salesForm">
+        <div class="col-md-4">
+            <div class="card p-4 shadow-sm mb-4">
+                <h5 class="mb-3">Record Payout</h5>
+                <form id="expenseForm">
                     <div class="mb-3">
-                        <label class="form-label">Category</label>
-                        <select class="form-select" id="itemCategory" required>
-                            <option value="Food">Food</option>
-                            <option value="Drinks">Drinks</option>
-                            <option value="Gym">Gym Session</option>
-                            <option value="Pool">Pool Access</option>
-                            <option value="Other">Other (Cutlery/Cleaning)</option>
+                        <label class="form-label">Type</label>
+                        <select class="form-select" id="expType" required>
+                            <option value="Market/Kitchen">Market/Kitchen</option>
+                            <option value="Salary Advance">Salary Advance</option>
+                            <option value="Maintenance">Maintenance/Repairs</option>
+                            <option value="Utility">Utilities (Light/Water)</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Description / Item Name</label>
-                        <input type="text" class="form-control" id="itemName" placeholder="e.g. Fried Rice, Heineken, etc." required>
+                        <label class="form-label">Description</label>
+                        <input type="text" class="form-control" id="expDesc" placeholder="e.g. Buying Gas, Miss Ranila Advance" required>
                     </div>
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <label class="form-label">Amount (FRS)</label>
-                            <input type="number" class="form-control" id="itemAmount" required>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <label class="form-label">Payment Method</label>
-                            <select class="form-select" id="paymentMethod">
-                                <option value="Cash">Cash</option>
-                                <option value="MoMo">MoMo</option>
-                                <option value="Pending">Pending Bill</option>
-                            </select>
-                        </div>
+                    <div class="mb-3">
+                        <label class="form-label">Amount (FRS)</label>
+                        <input type="number" class="form-control" id="expAmount" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 py-2">
-                        <i class="bi bi-cart-plus"></i> Record Sale
-                    </button>
+                    <button type="submit" class="btn btn-primary w-100">Confirm Payout</button>
                 </form>
             </div>
         </div>
 
-        <div class="col-lg-7">
-            <div class="card p-4 sales-card">
-                <h5 class="mb-3 d-flex justify-content-between">
-                    Recent Sales 
-                    <small class="text-muted" style="font-size: 0.8rem;">Live Shift Log</small>
-                </h5>
+        <div class="col-md-8">
+            <div class="card p-4 card-expense shadow-sm">
+                <h5 class="mb-3">Today's Payout Log</h5>
                 <div class="table-responsive">
-                    <table class="table table-hover" id="salesLog">
+                    <table class="table align-middle">
                         <thead class="table-light">
                             <tr>
                                 <th>Time / Staff</th>
-                                <th>Item</th>
+                                <th>Category</th>
                                 <th>Amount</th>
                                 <th>Pay</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="expenseLog">
                             <tr>
-                                <td>
-                                    <span class="timestamp-badge">10:45 AM</span><br>
-                                    <small class="text-muted">By: Moise</small>
-                                </td>
-                                <td><strong>Food</strong><br><small>Fried Rice</small></td>
-                                <td>8,000</td>
+                                <td><span class="timestamp">09:15 AM</span><br><small>Moise</small></td>
+                                <td><strong>Salary Advance</strong><br><small>Miss Ranila</small></td>
+                                <td class="text fw-bold">100,000</td>
                                 <td><span class="badge bg-success">Cash</span></td>
                                 <td><button class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil"></i></button></td>
                             </tr>
@@ -104,33 +104,76 @@
         </div>
     </div>
 
-    <div class="row mt-4">
+    <div class="row mt-5">
         <div class="col-12">
-            <div class="card p-4 sales-card bg-white">
-                <h5 class="section-title text-primary"><i class="bi bi-calendar-event"></i> Upcoming Hall & Kitchen Reservations</h5>
-                <p class="small text-muted">Tracking future events to ensure deposits and balances are managed.</p>
-                <table class="table table-bordered">
-                    <thead class="bg-light">
-                        <tr>
-                            <th>Event Date</th>
-                            <th>Event Type</th>
-                            <th>Total Cost</th>
-                            <th>Deposit Paid</th>
-                            <th>Balance Due</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>17 July 2027</td>
-                            <td>Anniversary Party</td>
-                            <td>1,400,000</td>
-                            <td class="text-success">500,000</td>
-                            <td class="text-danger fw-bold">900,000</td>
-                            <td><span class="badge bg-warning text-dark">Confirmed</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="card p-4 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="text-primary mb-0"><i class="bi bi-calendar-check"></i> Future Hall & Room Reservations</h5>
+                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#resModal">
+                        <i class="bi bi-plus-circle"></i> Add Reservation
+                    </button>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-bordered" style="min-width: 800px;">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Event Date</th>
+                                <th>Type</th>
+                                <th>Total Price</th>
+                                <th>Deposit</th>
+                                <th>Balance</th>
+                                <th>Recorded By</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>17 July 2027</td>
+                                <td>Anniversary</td>
+                                <td>1,400,000</td>
+                                <td class="text-success">500,000</td>
+                                <td class="text-danger fw-bold">900,000</td>
+                                <td><small>Moise <br> 03/02/2026</small></td>
+                                <td><button class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="resModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Future Reservation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="resForm">
+                    <div class="mb-3">
+                        <label>Event/Check-in Date</label>
+                        <input type="date" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Event Type</label>
+                        <select class="form-select">
+                            <option>Hall Booking</option>
+                            <option>Room Group Reservation</option>
+                            <option>Kitchen/Catering Service</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3"><label>Total Cost</label><input type="number" class="form-control"></div>
+                        <div class="col-6 mb-3"><label>Initial Deposit</label><input type="number" class="form-control"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="resForm" class="btn btn-primary">Save Reservation</button>
             </div>
         </div>
     </div>
